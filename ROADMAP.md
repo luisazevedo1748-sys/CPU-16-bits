@@ -17,10 +17,10 @@ its own commit once it works.
 - [x] 16-bit adder/subtractor with two's complement and SF / ZF / OF flags
 - [ ] Demultiplexer / decoder (for register and memory selection)
 - [ ] 16-bit barrel shifter (logical/arithmetic, left/right)
-- [ ] MDU — 16-bit multiplier (array-multiplier row cell)
+- [x] MDU — 16-bit multiplier (16x16 combinational array → 32-bit product)
   - [x] 1-bit and 4-bit multiplier cells
   - [x] row-cell width extension: 4 → 8 → 16 bits
-  - [ ] stack 16 rows into the full 16x16 array
+  - [x] stack 16 rows into the full 16x16 array
 - [ ] MDU — 16-bit divider (pick an algorithm: restoring / non-restoring)
 - [ ] **16-bit ALU** — combine add/subtract, logic, shift and MDU under an
       operation selector
@@ -59,6 +59,5 @@ its own commit once it works.
 - [x] Fix the XNOR truth table (it previously showed the XOR table)
 - [ ] Reorganise into layers: `00_transistors/`, `01_gates/`, `02_combinational/`,
       `03_sequential/`, `04_control/`, `05_cpu/`
-- [ ] Fill in `mult_cell_4_bits.md` (still a stub) under
-      `mdu/mult_cell_16_bits/mult_cell_8_bits/mult_cell_4_bits/`
+- [ ] Fill in `mult_cell_4_bits.md` (still a stub) under `mdu/.../mult_cell_4_bits/`
 - [ ] Resolve the cross-tree `mult_cell_1_bit.dig` → `full_adder.dig` dependency

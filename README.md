@@ -36,8 +36,9 @@ adder_subtractor/
    └─ adder_4_bits/ ── full_adder/ ── half_adder/
 
 mdu/   (multiply / divide unit)
-└─ mult_cell_16_bits/ ── mult_cell_8_bits/ ── mult_cell_4_bits/ ── mult_cell_1_bit/
-   array-multiplier row cell, width-extended 1 → 4 → 8 → 16 bits (in progress)
+└─ full_multiplier_16_bits/     16x16 combinational array multiplier -> 32-bit product
+   └─ mult_cell_16_bits/ ── mult_cell_8_bits/ ── mult_cell_4_bits/ ── mult_cell_1_bit/
+      array-multiplier row cell, width-extended 1 → 4 → 8 → 16 bits
 ```
 
 ## Module status
@@ -47,7 +48,7 @@ mdu/   (multiply / divide unit)
 | Transistors and logic gates | Complete |
 | Multiplexers (2:1 → 16:1) | Complete |
 | 16-bit adder / subtractor + flags | Complete |
-| Multiply/divide unit (MDU) | In progress (16-bit multiplier row cell done; full array and divider missing) |
+| Multiply/divide unit (MDU) | In progress (16x16 multiplier done; divider missing) |
 | ALU | Not started |
 | Registers and memory | Not started |
 | Control unit | Not started |
