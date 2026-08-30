@@ -67,3 +67,15 @@ See [`ROADMAP.md`](ROADMAP.md) for the detailed plan.
 - File and folder names: lowercase, `snake_case`, no spaces or accents.
 - One commit per completed block, with a message describing what was done.
 - Tags at important milestones (e.g. `alu-working`, `first-instruction`).
+
+## Authorship
+
+All circuits in this repository were designed and built by me in the Digital
+simulator — the transistor-level gates, the adders, the multiplexers, the
+multiplier cells and every wiring decision. The explanations in each `.md`
+reflect my own understanding of how the blocks work.
+
+AI assistance (Claude) was used only for the work around the circuits: tidying
+the folder layout, drafting and copy-editing the `.md` documentation, fixing
+file names and broken cross-references, and writing commit messages.
+AI-assisted commits carry a `Co-Authored-By` trailer.
