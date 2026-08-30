@@ -59,5 +59,5 @@ its own commit once it works.
 - [x] Fix the XNOR truth table (it previously showed the XOR table)
 - [ ] Reorganise into layers: `00_transistors/`, `01_gates/`, `02_combinational/`,
       `03_sequential/`, `04_control/`, `05_cpu/`
-- [ ] Fill in `mult_cell_4_bits.md` (still a stub) under `mdu/.../mult_cell_4_bits/`
+- [x] Fill in `mult_cell_4_bits.md` (was a stub) under `mdu/.../mult_cell_4_bits/`
 - [ ] Resolve the cross-tree `mult_cell_1_bit.dig` → `full_adder.dig` dependency
