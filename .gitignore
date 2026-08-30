@@ -1,0 +1,12 @@
+# Sistema operativo
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# Backups / temporários do simulador Digital
+*.dig.orig
+*.dig.bak
+*~
+
+# Exports temporários
+/export/

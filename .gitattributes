@@ -1,0 +1,12 @@
+# Normalização de fins de linha
+* text=auto
+
+# Ficheiros do simulador Digital (XML) — texto, sempre LF
+*.dig  text eol=lf
+
+# Notas
+*.md   text eol=lf
+*.txt  text eol=lf
+
+# Binários — sem diff, sem conversão de fins de linha
+*.png  binary
