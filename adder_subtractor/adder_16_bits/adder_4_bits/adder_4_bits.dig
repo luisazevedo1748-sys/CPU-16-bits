@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <circuit>
   <version>2</version>
-  <attributes/>
+  <attributes>
+    <entry>
+      <string>romContent</string>
+      <romList>
+        <roms/>
+      </romList>
+    </entry>
+    <entry>
+      <string>Width</string>
+      <int>5</int>
+    </entry>
+  </attributes>
   <visualElements>
     <visualElement>
       <elementName>full_adder.dig</elementName>
@@ -27,11 +38,15 @@
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
+          <string>rotation</string>
+          <rotation rotation="1"/>
+        </entry>
+        <entry>
           <string>Label</string>
-          <string>Cout</string>
+          <string>Sum2</string>
         </entry>
       </elementAttributes>
-      <pos x="1400" y="600"/>
+      <pos x="1120" y="460"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -48,20 +63,10 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>B1</string>
+          <string>B0</string>
         </entry>
       </elementAttributes>
       <pos x="420" y="480"/>
-    </visualElement>
-    <visualElement>
-      <elementName>In</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Label</string>
-          <string>Cin</string>
-        </entry>
-      </elementAttributes>
-      <pos x="420" y="520"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -76,44 +81,6 @@
         </entry>
       </elementAttributes>
       <pos x="700" y="380"/>
-    </visualElement>
-    <visualElement>
-      <elementName>In</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="3"/>
-        </entry>
-        <entry>
-          <string>Label</string>
-          <string>B2</string>
-        </entry>
-      </elementAttributes>
-      <pos x="940" y="420"/>
-    </visualElement>
-    <visualElement>
-      <elementName>full_adder.dig</elementName>
-      <elementAttributes/>
-      <pos x="1020" y="520"/>
-    </visualElement>
-    <visualElement>
-      <elementName>In</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="3"/>
-        </entry>
-        <entry>
-          <string>Label</string>
-          <string>B3</string>
-        </entry>
-      </elementAttributes>
-      <pos x="1160" y="460"/>
-    </visualElement>
-    <visualElement>
-      <elementName>full_adder.dig</elementName>
-      <elementAttributes/>
-      <pos x="1240" y="560"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -144,6 +111,30 @@
       <pos x="980" y="420"/>
     </visualElement>
     <visualElement>
+      <elementName>full_adder.dig</elementName>
+      <elementAttributes/>
+      <pos x="1020" y="520"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="3"/>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>B2</string>
+        </entry>
+      </elementAttributes>
+      <pos x="940" y="420"/>
+    </visualElement>
+    <visualElement>
+      <elementName>full_adder.dig</elementName>
+      <elementAttributes/>
+      <pos x="1240" y="560"/>
+    </visualElement>
+    <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
@@ -156,6 +147,30 @@
         </entry>
       </elementAttributes>
       <pos x="1200" y="460"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="3"/>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>B3</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1160" y="460"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>Cin</string>
+        </entry>
+      </elementAttributes>
+      <pos x="420" y="520"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -189,15 +204,11 @@
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
-          <string>rotation</string>
-          <rotation rotation="1"/>
-        </entry>
-        <entry>
           <string>Label</string>
-          <string>Sum2</string>
+          <string>Cout</string>
         </entry>
       </elementAttributes>
-      <pos x="1120" y="460"/>
+      <pos x="1400" y="600"/>
     </visualElement>
   </visualElements>
   <wires>

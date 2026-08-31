@@ -11,10 +11,24 @@ settles as soon as the inputs are stable.
 - **B** — 16-bit multiplier.
 - **LO** — low 16 bits of the product (bits 0–15).
 - **HI** — high 16 bits of the product (bits 16–31).
+- **ZF** — zero flag (see below).
+- **SF** — sign flag (see below).
 
 `HI:LO` is the full 32-bit result, so any product of two unsigned 16-bit values
 (up to 65535 × 65535) fits without loss. Operands are treated as unsigned; the
 signed interpretation is left to software.
+
+## Status flags
+
+Both flags are derived combinationally from the 32-bit product and add no delay
+to `HI` / `LO`.
+
+- **ZF** — set when the whole product is zero. Every bit of `LO` feeds one
+  16-input OR and every bit of `HI` another; a NOR of those two outputs is 1
+  only when all 32 bits are 0.
+- **SF** — bit 31 of the product, i.e. the top bit of `HI`, split straight out.
+  It is the sign bit when the result is read as a signed 32-bit two's-complement
+  value; the array itself still treats `A` and `B` as unsigned.
 
 ## How it works
 

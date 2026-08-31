@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <circuit>
   <version>2</version>
-  <attributes/>
+  <attributes>
+    <entry>
+      <string>romContent</string>
+      <romList>
+        <roms/>
+      </romList>
+    </entry>
+    <entry>
+      <string>Width</string>
+      <int>7</int>
+    </entry>
+  </attributes>
   <visualElements>
     <visualElement>
       <elementName>adder_4_bits.dig</elementName>
@@ -32,94 +43,10 @@
         </entry>
         <entry>
           <string>Label</string>
-          <string>B3</string>
+          <string>Cin</string>
         </entry>
       </elementAttributes>
-      <pos x="80" y="220"/>
-    </visualElement>
-    <visualElement>
-      <elementName>In</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="3"/>
-        </entry>
-        <entry>
-          <string>Label</string>
-          <string>A3</string>
-        </entry>
-      </elementAttributes>
-      <pos x="120" y="220"/>
-    </visualElement>
-    <visualElement>
-      <elementName>In</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="3"/>
-        </entry>
-        <entry>
-          <string>Label</string>
-          <string>B2</string>
-        </entry>
-      </elementAttributes>
-      <pos x="160" y="220"/>
-    </visualElement>
-    <visualElement>
-      <elementName>In</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="3"/>
-        </entry>
-        <entry>
-          <string>Label</string>
-          <string>A2</string>
-        </entry>
-      </elementAttributes>
-      <pos x="200" y="220"/>
-    </visualElement>
-    <visualElement>
-      <elementName>In</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="3"/>
-        </entry>
-        <entry>
-          <string>Label</string>
-          <string>B1</string>
-        </entry>
-      </elementAttributes>
-      <pos x="240" y="220"/>
-    </visualElement>
-    <visualElement>
-      <elementName>In</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="3"/>
-        </entry>
-        <entry>
-          <string>Label</string>
-          <string>A1</string>
-        </entry>
-      </elementAttributes>
-      <pos x="280" y="220"/>
-    </visualElement>
-    <visualElement>
-      <elementName>In</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="3"/>
-        </entry>
-        <entry>
-          <string>Label</string>
-          <string>B0</string>
-        </entry>
-      </elementAttributes>
-      <pos x="320" y="220"/>
+      <pos x="40" y="220"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -144,10 +71,10 @@
         </entry>
         <entry>
           <string>Label</string>
-          <string>Cin</string>
+          <string>B0</string>
         </entry>
       </elementAttributes>
-      <pos x="40" y="220"/>
+      <pos x="320" y="220"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -158,10 +85,10 @@
         </entry>
         <entry>
           <string>Label</string>
-          <string>B7</string>
+          <string>A1</string>
         </entry>
       </elementAttributes>
-      <pos x="660" y="220"/>
+      <pos x="280" y="220"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -172,10 +99,10 @@
         </entry>
         <entry>
           <string>Label</string>
-          <string>A7</string>
+          <string>B1</string>
         </entry>
       </elementAttributes>
-      <pos x="700" y="220"/>
+      <pos x="240" y="220"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -186,10 +113,10 @@
         </entry>
         <entry>
           <string>Label</string>
-          <string>B6</string>
+          <string>A2</string>
         </entry>
       </elementAttributes>
-      <pos x="740" y="220"/>
+      <pos x="200" y="220"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -200,10 +127,10 @@
         </entry>
         <entry>
           <string>Label</string>
-          <string>A6</string>
+          <string>B2</string>
         </entry>
       </elementAttributes>
-      <pos x="780" y="220"/>
+      <pos x="160" y="220"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -214,10 +141,10 @@
         </entry>
         <entry>
           <string>Label</string>
-          <string>B5</string>
+          <string>A3</string>
         </entry>
       </elementAttributes>
-      <pos x="820" y="220"/>
+      <pos x="120" y="220"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -228,24 +155,10 @@
         </entry>
         <entry>
           <string>Label</string>
-          <string>A5</string>
+          <string>B3</string>
         </entry>
       </elementAttributes>
-      <pos x="860" y="220"/>
-    </visualElement>
-    <visualElement>
-      <elementName>In</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="3"/>
-        </entry>
-        <entry>
-          <string>Label</string>
-          <string>B4</string>
-        </entry>
-      </elementAttributes>
-      <pos x="900" y="220"/>
+      <pos x="80" y="220"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -270,10 +183,10 @@
         </entry>
         <entry>
           <string>Label</string>
-          <string>B11</string>
+          <string>B4</string>
         </entry>
       </elementAttributes>
-      <pos x="1240" y="220"/>
+      <pos x="900" y="220"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -284,10 +197,10 @@
         </entry>
         <entry>
           <string>Label</string>
-          <string>A11</string>
+          <string>A5</string>
         </entry>
       </elementAttributes>
-      <pos x="1280" y="220"/>
+      <pos x="860" y="220"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -298,10 +211,10 @@
         </entry>
         <entry>
           <string>Label</string>
-          <string>B10</string>
+          <string>B5</string>
         </entry>
       </elementAttributes>
-      <pos x="1320" y="220"/>
+      <pos x="820" y="220"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -312,10 +225,10 @@
         </entry>
         <entry>
           <string>Label</string>
-          <string>A10</string>
+          <string>A6</string>
         </entry>
       </elementAttributes>
-      <pos x="1360" y="220"/>
+      <pos x="780" y="220"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -326,10 +239,10 @@
         </entry>
         <entry>
           <string>Label</string>
-          <string>B9</string>
+          <string>B6</string>
         </entry>
       </elementAttributes>
-      <pos x="1400" y="220"/>
+      <pos x="740" y="220"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -340,10 +253,10 @@
         </entry>
         <entry>
           <string>Label</string>
-          <string>A9</string>
+          <string>A7</string>
         </entry>
       </elementAttributes>
-      <pos x="1440" y="220"/>
+      <pos x="700" y="220"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -354,10 +267,10 @@
         </entry>
         <entry>
           <string>Label</string>
-          <string>B8</string>
+          <string>B7</string>
         </entry>
       </elementAttributes>
-      <pos x="1480" y="220"/>
+      <pos x="660" y="220"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -382,10 +295,10 @@
         </entry>
         <entry>
           <string>Label</string>
-          <string>B15</string>
+          <string>B8</string>
         </entry>
       </elementAttributes>
-      <pos x="1820" y="240"/>
+      <pos x="1480" y="220"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -396,10 +309,10 @@
         </entry>
         <entry>
           <string>Label</string>
-          <string>A15</string>
+          <string>A9</string>
         </entry>
       </elementAttributes>
-      <pos x="1860" y="240"/>
+      <pos x="1440" y="220"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -410,10 +323,10 @@
         </entry>
         <entry>
           <string>Label</string>
-          <string>B14</string>
+          <string>B9</string>
         </entry>
       </elementAttributes>
-      <pos x="1900" y="240"/>
+      <pos x="1400" y="220"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -424,10 +337,10 @@
         </entry>
         <entry>
           <string>Label</string>
-          <string>A14</string>
+          <string>A10</string>
         </entry>
       </elementAttributes>
-      <pos x="1940" y="240"/>
+      <pos x="1360" y="220"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -438,10 +351,10 @@
         </entry>
         <entry>
           <string>Label</string>
-          <string>B13</string>
+          <string>B10</string>
         </entry>
       </elementAttributes>
-      <pos x="1980" y="240"/>
+      <pos x="1320" y="220"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -452,10 +365,38 @@
         </entry>
         <entry>
           <string>Label</string>
-          <string>A13</string>
+          <string>A11</string>
         </entry>
       </elementAttributes>
-      <pos x="2020" y="240"/>
+      <pos x="1280" y="220"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="3"/>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>B11</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1240" y="220"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="3"/>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>A12</string>
+        </entry>
+      </elementAttributes>
+      <pos x="2100" y="240"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -480,52 +421,90 @@
         </entry>
         <entry>
           <string>Label</string>
-          <string>A12</string>
+          <string>A13</string>
         </entry>
       </elementAttributes>
-      <pos x="2100" y="240"/>
+      <pos x="2020" y="240"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="3"/>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>B13</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1980" y="240"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="3"/>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>A14</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1940" y="240"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="3"/>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>B14</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1900" y="240"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="3"/>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>A15</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1860" y="240"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="3"/>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>B15</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1820" y="240"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
-          <string>rotation</string>
-          <rotation rotation="1"/>
-        </entry>
-        <entry>
           <string>Label</string>
-          <string>Sum3</string>
+          <string>Cout</string>
         </entry>
       </elementAttributes>
-      <pos x="500" y="100"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Out</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="1"/>
-        </entry>
-        <entry>
-          <string>Label</string>
-          <string>Sum2</string>
-        </entry>
-      </elementAttributes>
-      <pos x="540" y="100"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Out</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="1"/>
-        </entry>
-        <entry>
-          <string>Label</string>
-          <string>Sum1</string>
-        </entry>
-      </elementAttributes>
-      <pos x="580" y="100"/>
+      <pos x="2400" y="400"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -550,10 +529,10 @@
         </entry>
         <entry>
           <string>Label</string>
-          <string>Sum7</string>
+          <string>Sum1</string>
         </entry>
       </elementAttributes>
-      <pos x="1080" y="100"/>
+      <pos x="580" y="100"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -564,10 +543,10 @@
         </entry>
         <entry>
           <string>Label</string>
-          <string>Sum6</string>
+          <string>Sum2</string>
         </entry>
       </elementAttributes>
-      <pos x="1120" y="100"/>
+      <pos x="540" y="100"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -578,10 +557,10 @@
         </entry>
         <entry>
           <string>Label</string>
-          <string>Sum5</string>
+          <string>Sum3</string>
         </entry>
       </elementAttributes>
-      <pos x="1160" y="100"/>
+      <pos x="500" y="100"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -606,10 +585,10 @@
         </entry>
         <entry>
           <string>Label</string>
-          <string>Sum11</string>
+          <string>Sum5</string>
         </entry>
       </elementAttributes>
-      <pos x="1660" y="100"/>
+      <pos x="1160" y="100"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -620,10 +599,10 @@
         </entry>
         <entry>
           <string>Label</string>
-          <string>Sum10</string>
+          <string>Sum6</string>
         </entry>
       </elementAttributes>
-      <pos x="1700" y="100"/>
+      <pos x="1120" y="100"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -634,10 +613,10 @@
         </entry>
         <entry>
           <string>Label</string>
-          <string>Sum9</string>
+          <string>Sum7</string>
         </entry>
       </elementAttributes>
-      <pos x="1740" y="100"/>
+      <pos x="1080" y="100"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -662,10 +641,10 @@
         </entry>
         <entry>
           <string>Label</string>
-          <string>Sum15</string>
+          <string>Sum9</string>
         </entry>
       </elementAttributes>
-      <pos x="2240" y="120"/>
+      <pos x="1740" y="100"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -676,10 +655,38 @@
         </entry>
         <entry>
           <string>Label</string>
-          <string>Sum14</string>
+          <string>Sum10</string>
         </entry>
       </elementAttributes>
-      <pos x="2280" y="120"/>
+      <pos x="1700" y="100"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="1"/>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>Sum11</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1660" y="100"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="1"/>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>Sum12</string>
+        </entry>
+      </elementAttributes>
+      <pos x="2360" y="120"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -704,20 +711,24 @@
         </entry>
         <entry>
           <string>Label</string>
-          <string>Sum12</string>
+          <string>Sum14</string>
         </entry>
       </elementAttributes>
-      <pos x="2360" y="120"/>
+      <pos x="2280" y="120"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
+          <string>rotation</string>
+          <rotation rotation="1"/>
+        </entry>
+        <entry>
           <string>Label</string>
-          <string>Cout</string>
+          <string>Sum15</string>
         </entry>
       </elementAttributes>
-      <pos x="2400" y="400"/>
+      <pos x="2240" y="120"/>
     </visualElement>
   </visualElements>
   <wires>
