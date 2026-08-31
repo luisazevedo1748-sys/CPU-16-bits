@@ -21,7 +21,11 @@ its own commit once it works.
   - [x] 1-bit and 4-bit multiplier cells
   - [x] row-cell width extension: 4 → 8 → 16 bits
   - [x] stack 16 rows into the full 16x16 array
-- [ ] MDU — 16-bit divider (pick an algorithm: restoring / non-restoring)
+- [~] MDU — 16-bit divider (restoring array, quotient + remainder)
+  - [x] 1-bit / 4-bit / 8-bit / 16-bit divider cells, width-extended
+  - [x] stack 16 rows into the full array
+  - [ ] fix the div_cell_* pin-order bug (undefined wire in div_cell_8_bits)
+  - [ ] verify against a test program
 - [ ] **16-bit ALU** — combine add/subtract, logic, shift and MDU under an
       operation selector
 
