@@ -12,6 +12,7 @@ its own commit once it works.
 ## 1. Combinational blocks
 
 - [x] Multiplexers 2:1, 4:1, 8:1, 16:1
+- [x] Wide 2:1 bus multiplexers: 4-bit and 16-bit (`mux_2_1_4_bits`, `mux_2_1_16_bits`)
 - [x] Half-adder, full-adder
 - [x] Ripple-carry adder, 4-bit and 16-bit
 - [x] 16-bit adder/subtractor with two's complement and SF / ZF / OF flags
@@ -26,6 +27,9 @@ its own commit once it works.
   - [x] stack 16 rows into the full array
   - [ ] fix the div_cell_* pin-order bug (undefined wire in div_cell_8_bits)
   - [ ] verify against a test program
+- [~] MDU — top-level `mdu.dig`: multiplier + divider behind `MDU_op`, shared
+      `LO` / `HI` outputs and `Flag_Z / N / RZ / DZ` (drafted; divide path
+      blocked on the divider pin-order bug)
 - [ ] **16-bit ALU** — combine add/subtract, logic, shift and MDU under an
       operation selector
 
