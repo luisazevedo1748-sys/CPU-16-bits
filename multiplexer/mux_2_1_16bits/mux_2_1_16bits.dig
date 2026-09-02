@@ -15,22 +15,22 @@
   </attributes>
   <visualElements>
     <visualElement>
-      <elementName>mux_2_1_4_bits.dig</elementName>
+      <elementName>mux_2_1_4b.dig</elementName>
       <elementAttributes/>
       <pos x="1120" y="140"/>
     </visualElement>
     <visualElement>
-      <elementName>mux_2_1_4_bits.dig</elementName>
+      <elementName>mux_2_1_4b.dig</elementName>
       <elementAttributes/>
       <pos x="1340" y="80"/>
     </visualElement>
     <visualElement>
-      <elementName>mux_2_1_4_bits.dig</elementName>
+      <elementName>mux_2_1_4b.dig</elementName>
       <elementAttributes/>
       <pos x="700" y="280"/>
     </visualElement>
     <visualElement>
-      <elementName>mux_2_1_4_bits.dig</elementName>
+      <elementName>mux_2_1_4b.dig</elementName>
       <elementAttributes/>
       <pos x="900" y="200"/>
     </visualElement>

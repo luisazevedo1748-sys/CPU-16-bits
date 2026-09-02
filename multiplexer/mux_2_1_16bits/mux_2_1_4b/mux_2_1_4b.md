@@ -1,8 +1,12 @@
-# 4-bit-wide 2:1 multiplexer
+# mux_2_1_4b — 4-bit-wide 2:1 multiplexer
 
 A bus version of the plain `mux_2_1`: it routes one of two **4-bit** inputs to a
 4-bit output under a single select line. Same selector for all four bits, so the
 whole nibble switches together.
+
+> File name kept as `mux_2_1_4b` (not `mux_2_1_4_bits`) because the `.dig` is a
+> byte-for-byte copy of the Digital library file and its parent
+> `mux_2_1_16bits.dig` references it by that exact name.
 
 ## Interface
 
@@ -21,7 +25,7 @@ bus. No logic beyond the four leaf muxes — it is purely a width extension.
 ## Structure
 
 ```
-mux_2_1_4_bits
+mux_2_1_4b
 └─ 4 × mux_2_1
 ```
 

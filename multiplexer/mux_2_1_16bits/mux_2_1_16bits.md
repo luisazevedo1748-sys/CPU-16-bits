@@ -1,9 +1,12 @@
-# 16-bit-wide 2:1 multiplexer
+# mux_2_1_16bits — 16-bit-wide 2:1 multiplexer
 
 A full 16-bit bus 2:1 multiplexer: it selects one of two 16-bit words and puts
 it on a 16-bit output, all bits switched by one common select line. This is the
 building block used to steer 16-bit datapaths (operand routing, result
 selection) in the MDU and, later, the ALU.
+
+> File name kept as `mux_2_1_16bits` because the `.dig` is a byte-for-byte copy
+> of the Digital library file and `MDU.dig` references it by that exact name.
 
 ## Interface
 
@@ -15,15 +18,15 @@ selection) in the MDU and, later, the ALU.
 ## How it works
 
 Each 16-bit input is split into four nibbles (`Splitter` `16 → 4,4,4,4`).
-Nibble *i* of `In_0` and nibble *i* of `In_1` feed a `mux_2_1_4_bits`, and all
-four share the same `S`. The four selected nibbles are re-joined into the
-16-bit `Out` bus. Purely a width extension over `mux_2_1_4_bits`.
+Nibble *i* of `In_0` and nibble *i* of `In_1` feed a `mux_2_1_4b`, and all four
+share the same `S`. The four selected nibbles are re-joined into the 16-bit
+`Out` bus. Purely a width extension over `mux_2_1_4b`.
 
 ## Structure
 
 ```
-mux_2_1_16_bits
-└─ 4 × mux_2_1_4_bits
+mux_2_1_16bits
+└─ 4 × mux_2_1_4b
    └─ 4 × mux_2_1
 ```
 

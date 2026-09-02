@@ -29,8 +29,8 @@ logic_gates/
 
 multiplexer/
 ├─ mux_16_1 / mux_8_1 / mux_4_1 / mux_2_1   (logic version + transistor-level version)
-└─ mux_2_1_16_bits/                         16-bit-wide 2:1 bus mux
-   └─ mux_2_1_4_bits/                        4-bit-wide 2:1 bus mux  (both from mux_2_1)
+└─ mux_2_1_16bits/                          16-bit-wide 2:1 bus mux
+   └─ mux_2_1_4b/                            4-bit-wide 2:1 bus mux  (both from mux_2_1)
 
 adder_subtractor/
 ├─ add_sub_16_bits     16-bit adder/subtractor (two's complement) with SF / ZF / OF flags
@@ -38,7 +38,7 @@ adder_subtractor/
    └─ adder_4_bits/ ── full_adder/ ── half_adder/
 
 mdu/   (multiply / divide unit)
-├─ mdu.dig                      multiplier + divider behind one MDU_op selector -> LO / HI + flags
+├─ MDU.dig                      multiplier + divider behind one MDU_op selector -> LO / HI + flags
 ├─ full_multiplier_16_bits/     16x16 combinational array multiplier -> 32-bit product + ZF / SF
 │  └─ mult_cell_16_bits/ ── mult_cell_8_bits/ ── mult_cell_4_bits/ ── mult_cell_1_bit/
 │     array-multiplier row cell, width-extended 1 → 4 → 8 → 16 bits
@@ -54,7 +54,7 @@ mdu/   (multiply / divide unit)
 | Transistors and logic gates | Complete |
 | Multiplexers (2:1 → 16:1) | Complete |
 | 16-bit adder / subtractor + flags | Complete |
-| Multiply/divide unit (MDU) | In progress (16x16 multiplier done; divider + top-level `mdu.dig` drafted, divider has a pin-order bug) |
+| Multiply/divide unit (MDU) | In progress (16x16 multiplier done; divider + top-level `MDU.dig` drafted, divider has a pin-order bug) |
 | ALU | Not started |
 | Registers and memory | Not started |
 | Control unit | Not started |
@@ -68,6 +68,14 @@ See [`ROADMAP.md`](ROADMAP.md) for the detailed plan.
   `adder_subtractor/` tree. Digital only searches sub-directories of the circuit
   being simulated, so add that folder as a custom component search path (or keep
   a local copy) to simulate the MDU blocks.
+- `mdu/MDU.dig` is a verbatim copy of the Digital library file: it references
+  the divider as `full_division.dig`, but this repo names it
+  `full_divider_16_bits.dig`, so that sub-circuit does not resolve until the
+  reference is re-pointed inside Digital. Its other names (`mux_2_1_16bits.dig`,
+  `mux_2_1.dig`, `full_multiplier_16_bits.dig`) do resolve. See `mdu/MDU.md`.
+- The two wide bus muxes keep their library names (`mux_2_1_16bits`,
+  `mux_2_1_4b`) rather than the repo's `_N_bits` style, so that `MDU.dig` and
+  `mux_2_1_16bits.dig` resolve their children without editing any `.dig`.
 
 ## Conventions
 

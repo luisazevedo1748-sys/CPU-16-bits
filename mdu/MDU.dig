@@ -42,7 +42,7 @@
       <pos x="500" y="80"/>
     </visualElement>
     <visualElement>
-      <elementName>full_divider_16_bits.dig</elementName>
+      <elementName>full_division.dig</elementName>
       <elementAttributes/>
       <pos x="820" y="500"/>
     </visualElement>
@@ -52,12 +52,12 @@
       <pos x="820" y="240"/>
     </visualElement>
     <visualElement>
-      <elementName>mux_2_1_16_bits.dig</elementName>
+      <elementName>mux_2_1_16bits.dig</elementName>
       <elementAttributes/>
       <pos x="580" y="180"/>
     </visualElement>
     <visualElement>
-      <elementName>mux_2_1_16_bits.dig</elementName>
+      <elementName>mux_2_1_16bits.dig</elementName>
       <elementAttributes/>
       <pos x="580" y="360"/>
     </visualElement>
@@ -90,12 +90,12 @@
       <pos x="540" y="380"/>
     </visualElement>
     <visualElement>
-      <elementName>mux_2_1_16_bits.dig</elementName>
+      <elementName>mux_2_1_16bits.dig</elementName>
       <elementAttributes/>
       <pos x="580" y="480"/>
     </visualElement>
     <visualElement>
-      <elementName>mux_2_1_16_bits.dig</elementName>
+      <elementName>mux_2_1_16bits.dig</elementName>
       <elementAttributes/>
       <pos x="580" y="600"/>
     </visualElement>
@@ -160,12 +160,12 @@
       <pos x="1600" y="480"/>
     </visualElement>
     <visualElement>
-      <elementName>mux_2_1_16_bits.dig</elementName>
+      <elementName>mux_2_1_16bits.dig</elementName>
       <elementAttributes/>
       <pos x="1340" y="340"/>
     </visualElement>
     <visualElement>
-      <elementName>mux_2_1_16_bits.dig</elementName>
+      <elementName>mux_2_1_16bits.dig</elementName>
       <elementAttributes/>
       <pos x="1340" y="460"/>
     </visualElement>

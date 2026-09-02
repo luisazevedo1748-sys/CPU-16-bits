@@ -8,6 +8,10 @@ result words plus status flags.
 Purely combinational: it inherits the multiplier and divider as-is, adds only
 multiplexers, and settles once the inputs are stable.
 
+> File name kept as `MDU.dig` (uppercase, unlike the rest of the repo) because
+> it is a byte-for-byte copy of the Digital library file — its `<elementName>`
+> references were left untouched. See **Cross-references** below.
+
 ## Interface
 
 - **A** — 16-bit operand (multiplicand / dividend).
@@ -34,12 +38,12 @@ convenience).
 
 ## How it works
 
-1. **Operand gating.** `A` and `B` each pass through a `mux_2_1_16_bits` whose
+1. **Operand gating.** `A` and `B` each pass through a `mux_2_1_16bits` whose
    other input is `Ground`. `MDU_op` decides which unit receives the real
    operands; the idle unit receives 0/0.
-2. **Both units compute.** `full_multiplier_16_bits` produces `HI:LO` and its
-   own `ZF`/`SF`; `full_divider_16_bits` produces `Quotient`/`Rest`.
-3. **Result select.** Two more `mux_2_1_16_bits` pick `LO` and `HI` between the
+2. **Both units compute.** the multiplier produces `HI:LO` and its own
+   `ZF`/`SF`; the divider produces `Quotient`/`Rest`.
+3. **Result select.** Two more `mux_2_1_16bits` pick `LO` and `HI` between the
    multiplier's product halves and the divider's quotient / remainder,
    controlled by `MDU_op`.
 4. **Flag select.** Four `mux_2_1` blocks pick `Flag_Z / Flag_N / Flag_RZ /
@@ -49,25 +53,41 @@ convenience).
 ## Structure
 
 ```
-mdu
+MDU
 ├─ full_multiplier_16_bits/   16×16 array multiplier → HI:LO + ZF/SF
 ├─ full_divider_16_bits/      16-bit restoring array divider → quotient + remainder
-├─ mux_2_1_16_bits            operand gating (×4) and LO/HI result select (×2)
-│  └─ mux_2_1_4_bits
+├─ mux_2_1_16bits             operand gating (×4) and LO/HI result select (×2)
+│  └─ mux_2_1_4b
 │     └─ mux_2_1
 └─ mux_2_1                    flag select (×4)
 ```
 
-Both `mux_2_1_16_bits` and the divider live in other folders of the repo; add
-their directories to Digital's custom component search path when opening this
-block.
+## Cross-references
+
+`MDU.dig` refers to its sub-circuits by the names they had in the Digital
+library, which do not all match this repo:
+
+| `MDU.dig` expects | This repo has | Action |
+|---|---|---|
+| `full_multiplier_16_bits.dig` | same | resolves |
+| `mux_2_1_16bits.dig` | `multiplexer/mux_2_1_16bits/mux_2_1_16bits.dig` | resolves |
+| `mux_2_1.dig` | `multiplexer/mux_16_1/mux_8_1/mux_4_1/mux_2_1/mux_2_1.dig` | resolves |
+| `full_division.dig` | `mdu/full_divider_16_bits/full_divider_16_bits.dig` | **does not resolve** — name mismatch |
+
+To open `MDU.dig` in Digital, either provide a `full_division.dig` on the
+component search path, or re-point that reference inside Digital once the
+divider is finalised. (Same class of issue as the documented
+`mult_cell_1_bit.dig` → `full_adder.dig` cross-tree dependency.)
+
+Also add the `mux_2_1_16bits/` and `full_divider_16_bits/` folders to Digital's
+custom component search path when opening this block.
 
 ## Status
 
-Draft. It depends on `full_divider_16_bits`, which still has the unresolved
-`div_cell_*` pin-order bug (see `ROADMAP.md` and the divider's own notes), so
-the divide path is not yet trustworthy. The multiply path matches the
-standalone `full_multiplier_16_bits`.
+Draft. It depends on the divider, which still has the unresolved `div_cell_*`
+pin-order bug (see `ROADMAP.md` and the divider's own notes), so the divide path
+is not yet trustworthy. The multiply path matches the standalone
+`full_multiplier_16_bits`.
 
 To verify once the divider is fixed:
 
