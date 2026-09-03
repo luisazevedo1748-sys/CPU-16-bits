@@ -24,10 +24,11 @@ div_cell_8_bits
 └─ 2 × div_cell_4_bits     ripple borrow chain, shared Restore
 ```
 
-## Known issue
+## Pin order
 
-`div_cell_4_bits`'s pins are ordered by position as `Cin, Rin, Din, Restore`,
-but this circuit wires the slices as `Rin, Din, Cin, Restore`. The 1-bit `Cin`
-line ends up on the 4-bit `Din` port and the 4-bit `Rin` bus on the 1-bit `Cin`
-port, so three bits of that port are left undriven — this is the "wire in
-undefined state" Digital reports here. See `div_cell_1_bit.md`.
+`div_cell_4_bits` exposes its inputs, by symbol position, as
+`Cin, Rin, Din, Restore`; this circuit's own input order is
+`Rin, Din, Cin, Restore`. The wiring between the two is drawn to match those
+positions (the 1-bit `Cin` and the 4-bit `Rin` / `Din` buses each land on the
+right port). See `div_cell_1_bit.md`. Verified in the full array
+(`100 ÷ 7` → 14 r 2).

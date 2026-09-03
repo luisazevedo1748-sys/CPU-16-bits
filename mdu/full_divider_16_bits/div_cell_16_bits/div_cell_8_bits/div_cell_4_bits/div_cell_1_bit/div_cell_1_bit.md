@@ -33,18 +33,12 @@ div_cell_1_bit
 └─ mux_2_1        Restore ? Rin : Sum
 ```
 
-## Known issue
+## Pin order
 
-The pins do not line up with the wiring. Digital orders a block's pins by the
-vertical position of its `In` / `Out` symbols, not by creation order:
-
-- inside this cell the `mux_2_1` is wired as if its pins were `D0, D1, S`, but
-  its `S` symbol sits well above `D0` / `D1`, so the real order is `S, D0, D1`.
-  As drawn, the mux select is the adder `Sum` instead of `Restore`.
-- this cell's own `Restore` symbol is at the top, so its pin order is
-  `Restore, Rin, Din, Cin` rather than `Rin, Din, Cin, Restore` — which is how
-  `div_cell_4_bits` wires it.
-
-Fix bottom-up with *Edit → Order Inputs/Outputs* (or by realigning the `In`
-symbols): `mux_2_1` → `div_cell_1_bit` → `div_cell_4_bits` → `div_cell_8_bits`
-→ `div_cell_16_bits`.
+Digital orders a block's pins by the vertical position of its `In` / `Out`
+symbols, not by creation order. The `Restore` symbol sits at the top of this
+cell, so its input order is `Restore, Rin, Din, Cin`; the internal `mux_2_1` is
+likewise wired to its own `S, D0, D1` order (`S` above `D0` / `D1`). Every
+parent up the chain (`div_cell_4_bits` → `div_cell_8_bits` → `div_cell_16_bits`)
+is wired to match. Verified end-to-end in simulation (`100 ÷ 7` →
+quotient 14, remainder 2).

@@ -17,7 +17,7 @@ Each block has three files:
 1. Download [Digital](https://github.com/hneemann/Digital/releases) (needs Java).
 2. Open the `.dig` file you want.
 3. Composite circuits reference their sub-circuits by file name — keep the folder
-   structure intact. See "Known issues" below.
+   structure intact. See "Opening the mirrored circuits" below.
 
 ## Structure
 
@@ -29,6 +29,7 @@ logic_gates/
 
 multiplexer/
 ├─ mux_16_1 / mux_8_1 / mux_4_1 / mux_2_1   (logic version + transistor-level version)
+│                                           mux_16_1 takes its 16 data lines as one D_In bus
 └─ mux_2_1_16bits/                          16-bit-wide 2:1 bus mux
    └─ mux_2_1_4b/                            4-bit-wide 2:1 bus mux  (both from mux_2_1)
 
@@ -42,9 +43,22 @@ mdu/   (multiply / divide unit)
 ├─ full_multiplier_16_bits/     16x16 combinational array multiplier -> 32-bit product + ZF / SF
 │  └─ mult_cell_16_bits/ ── mult_cell_8_bits/ ── mult_cell_4_bits/ ── mult_cell_1_bit/
 │     array-multiplier row cell, width-extended 1 → 4 → 8 → 16 bits
-└─ full_divider_16_bits/        16-bit restoring array divider -> quotient + remainder
+└─ full_divider_16_bits/        16-bit restoring array divider -> quotient + remainder + FDZ/FRZ/FN flags
    └─ div_cell_16_bits/ ── div_cell_8_bits/ ── div_cell_4_bits/ ── div_cell_1_bit/
       divider row cell, width-extended 1 → 4 → 8 → 16 bits
+
+alu/   (16-bit arithmetic / logic unit)
+├─ ALU.dig                      add/sub + MDU + shift + logic behind ALU_Op -> Out / Out_HI + flags
+├─ shift_left_16bits/           16-bit barrel shifter, left  (4 x mux_2_1_16bits)
+└─ shift_right_16bits/          16-bit barrel shifter, right (4 x mux_2_1_16bits)
+
+demux_decoder/
+├─ decoder_4to16bits/           4-bit code -> one-hot 16-bit bus (register / opcode select)
+└─ decoder_3to8/                3-bit code -> one-hot 8-bit control bus
+
+bus/
+├─ tristate_16bits.dig          16-bit tri-state bus driver (Enable -> drive / high-Z)
+└─ switch_1bit/                 1-bit CMOS transmission gate (leaf of tristate_16bits)
 ```
 
 ## Module status
@@ -54,28 +68,41 @@ mdu/   (multiply / divide unit)
 | Transistors and logic gates | Complete |
 | Multiplexers (2:1 → 16:1) | Complete |
 | 16-bit adder / subtractor + flags | Complete |
-| Multiply/divide unit (MDU) | In progress (16x16 multiplier done; divider + top-level `MDU.dig` drafted, divider has a pin-order bug) |
-| ALU | Not started |
+| Multiply/divide unit (MDU) | 16x16 multiplier done; divider simulates correctly (`100 ÷ 7` → 14 r 2); top-level `MDU.dig` wraps both behind `MDU_op` |
+| 16-bit barrel shifters (left / right) | Drafted from Digital |
+| ALU | Drafted (add/sub, shift, logic paths compose working blocks; shift + MDU-remainder paths spot-checked with `A=100, B=7`) |
+| Decoders (4→16, 3→8) | Drafted from Digital |
+| Bus primitives (`switch_1bit`, `tristate_16bits`) | Drafted from Digital |
 | Registers and memory | Not started |
 | Control unit | Not started |
 | Datapath / CPU | Not started |
 
 See [`ROADMAP.md`](ROADMAP.md) for the detailed plan.
 
-## Known issues
+## Opening the mirrored circuits
 
-- `mdu/.../mult_cell_1_bit.dig` references `full_adder.dig`, which lives in the
-  `adder_subtractor/` tree. Digital only searches sub-directories of the circuit
-  being simulated, so add that folder as a custom component search path (or keep
-  a local copy) to simulate the MDU blocks.
-- `mdu/MDU.dig` is a verbatim copy of the Digital library file: it references
-  the divider as `full_division.dig`, but this repo names it
-  `full_divider_16_bits.dig`, so that sub-circuit does not resolve until the
-  reference is re-pointed inside Digital. Its other names (`mux_2_1_16bits.dig`,
-  `mux_2_1.dig`, `full_multiplier_16_bits.dig`) do resolve. See `mdu/MDU.md`.
-- The two wide bus muxes keep their library names (`mux_2_1_16bits`,
-  `mux_2_1_4b`) rather than the repo's `_N_bits` style, so that `MDU.dig` and
-  `mux_2_1_16bits.dig` resolve their children without editing any `.dig`.
+Every `.dig` here is a byte-for-byte copy of the file in the Digital library
+folder, laid out in a folder tree for version control. In the library folder
+they all sit side by side, so everything resolves directly. When opening a
+composite block **from this repo**, add the folders holding its sub-circuits as
+custom component search paths (Edit → Settings), because Digital only searches
+sub-directories of the file it opens:
+
+- MDU / multiplier / divider blocks: add `adder_subtractor/` (for
+  `full_adder.dig`) and `multiplexer/`.
+- `mdu/MDU.dig`: also add `mdu/full_divider_16_bits/` and
+  `multiplexer/mux_2_1_16bits/`. `MDU.dig` names the divider `full_division.dig`
+  (its library name); this repo's copy of that block is
+  `mdu/full_divider_16_bits/full_divider_16_bits.dig`.
+- `alu/ALU.dig`: add `adder_subtractor/`, `mdu/`, and the two shifter folders
+  under `alu/`.
+
+The wide bus muxes keep their library names (`mux_2_1_16bits`, `mux_2_1_4b`) and
+the shifters keep theirs (`shift_left_16bits`, `shift_right_16bits`), so parents
+resolve them with no `.dig` edit.
+
+`.png` screenshots for the shifters, `decoder_3to8`, `tristate_16bits` and
+`switch_1bit` are still to be exported from Digital.
 
 ## Conventions
 

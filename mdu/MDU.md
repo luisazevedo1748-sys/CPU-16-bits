@@ -29,8 +29,9 @@ multiplexers, and settles once the inputs are stable.
   32-bit product).
 - **Flag_RZ** — division remainder is zero (the division was exact). Meaningful
   only for a divide.
-- **Flag_DZ** — division by zero (`B = 0`). Meaningful only for a divide; the
-  divider itself is not special-cased, so its quotient comes out all ones.
+- **Flag_DZ** — division by zero (`B = 0`). Meaningful only for a divide. The
+  divider array is not special-cased, so on `B = 0` its quotient comes out all
+  ones; this flag is what reports the condition.
 
 `HI:LO` is the full 32-bit product for a multiply. Operands are unsigned; a
 signed interpretation is left to software (the sign flag is provided for
@@ -50,6 +51,11 @@ convenience).
    Flag_DZ` between the multiplier-side and divider-side sources (some tied to
    `Ground` where a flag does not apply to that operation).
 
+> `MDU.dig` synthesises the divide-side flags itself, with several inputs tied
+> to `Ground`. The standalone `full_divider_16_bits` also exposes `FDZ / FRZ /
+> FN` directly, so those can be wired into the flag muxes instead of the
+> `Ground` stubs if the flag paths are ever reworked.
+
 ## Structure
 
 ```
@@ -64,32 +70,23 @@ MDU
 
 ## Cross-references
 
-`MDU.dig` refers to its sub-circuits by the names they had in the Digital
-library, which do not all match this repo:
+`MDU.dig` refers to its sub-circuits by their Digital-library names. In the
+library folder they sit side by side and all resolve; from this repo's folder
+tree, add the folders below as custom component search paths (Edit → Settings).
 
-| `MDU.dig` expects | This repo has | Action |
-|---|---|---|
-| `full_multiplier_16_bits.dig` | same | resolves |
-| `mux_2_1_16bits.dig` | `multiplexer/mux_2_1_16bits/mux_2_1_16bits.dig` | resolves |
-| `mux_2_1.dig` | `multiplexer/mux_16_1/mux_8_1/mux_4_1/mux_2_1/mux_2_1.dig` | resolves |
-| `full_division.dig` | `mdu/full_divider_16_bits/full_divider_16_bits.dig` | **does not resolve** — name mismatch |
-
-To open `MDU.dig` in Digital, either provide a `full_division.dig` on the
-component search path, or re-point that reference inside Digital once the
-divider is finalised. (Same class of issue as the documented
-`mult_cell_1_bit.dig` → `full_adder.dig` cross-tree dependency.)
-
-Also add the `mux_2_1_16bits/` and `full_divider_16_bits/` folders to Digital's
-custom component search path when opening this block.
+| `MDU.dig` uses | This repo's copy |
+|---|---|
+| `full_multiplier_16_bits.dig` | `mdu/full_multiplier_16_bits/full_multiplier_16_bits.dig` |
+| `full_division.dig` | `mdu/full_divider_16_bits/full_divider_16_bits.dig` |
+| `mux_2_1_16bits.dig` | `multiplexer/mux_2_1_16bits/mux_2_1_16bits.dig` |
+| `mux_2_1.dig` | `multiplexer/mux_16_1/mux_8_1/mux_4_1/mux_2_1/mux_2_1.dig` |
 
 ## Status
 
-Draft. It depends on the divider, which still has the unresolved `div_cell_*`
-pin-order bug (see `ROADMAP.md` and the divider's own notes), so the divide path
-is not yet trustworthy. The multiply path matches the standalone
-`full_multiplier_16_bits`.
+The multiply path matches the standalone `full_multiplier_16_bits`; the divider
+simulates correctly on its own (`100 ÷ 7` → quotient 14, remainder 2).
 
-To verify once the divider is fixed:
+To verify through `MDU.dig`:
 
 - multiply: `A·B` low/high against `full_multiplier_16_bits`, `Flag_Z` on
   `A·B = 0`, `Flag_N` on a product with bit 31 set.

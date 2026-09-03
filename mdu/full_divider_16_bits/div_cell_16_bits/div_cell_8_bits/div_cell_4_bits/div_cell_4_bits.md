@@ -26,8 +26,9 @@ div_cell_4_bits
 └─ 4 × div_cell_1_bit     ripple borrow chain, shared Restore
 ```
 
-## Known issue
+## Pin order
 
-`div_cell_1_bit`'s pins are ordered by position as `Restore, Rin, Din, Cin`,
-but this circuit wires the cells as `Rin, Din, Cin, Restore`, so every cell
-receives the wrong signal on every pin. See `div_cell_1_bit.md`.
+`div_cell_1_bit` exposes its inputs, by symbol position, as
+`Restore, Rin, Din, Cin`; this circuit's own input order is
+`Cin, Rin, Din, Restore`. The wiring between the two is drawn to match. See
+`div_cell_1_bit.md`. Verified in the full array (`100 ÷ 7` → 14 r 2).

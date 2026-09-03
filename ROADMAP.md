@@ -16,22 +16,32 @@ its own commit once it works.
 - [x] Half-adder, full-adder
 - [x] Ripple-carry adder, 4-bit and 16-bit
 - [x] 16-bit adder/subtractor with two's complement and SF / ZF / OF flags
-- [ ] Demultiplexer / decoder (for register and memory selection)
-- [ ] 16-bit barrel shifter (logical/arithmetic, left/right)
+- [~] Demultiplexer / decoder (for register and memory selection)
+      — `decoder_4to16bits` (4→16 one-hot) and `decoder_3to8` (3→8 one-hot)
+      drafted from Digital under `demux_decoder/`
+- [~] 16-bit barrel shifter (logical/arithmetic, left/right)
+      — `shift_left_16bits` / `shift_right_16bits` drafted (logical only, 4
+      barrel stages from `mux_2_1_16bits`); arithmetic right shift still to do
+- [~] Bus primitives — `switch_1bit` (CMOS transmission gate) and
+      `tristate_16bits` (16-bit tri-state bus driver) drafted under `bus/`
 - [x] MDU — 16-bit multiplier (16x16 combinational array → 32-bit product)
   - [x] 1-bit and 4-bit multiplier cells
   - [x] row-cell width extension: 4 → 8 → 16 bits
   - [x] stack 16 rows into the full 16x16 array
-- [~] MDU — 16-bit divider (restoring array, quotient + remainder)
+- [x] MDU — 16-bit divider (restoring array, quotient + remainder)
   - [x] 1-bit / 4-bit / 8-bit / 16-bit divider cells, width-extended
   - [x] stack 16 rows into the full array
-  - [ ] fix the div_cell_* pin-order bug (undefined wire in div_cell_8_bits)
-  - [ ] verify against a test program
-- [~] MDU — top-level `MDU.dig`: multiplier + divider behind `MDU_op`, shared
-      `LO` / `HI` outputs and `Flag_Z / N / RZ / DZ` (drafted; divide path
-      blocked on the divider pin-order bug)
-- [ ] **16-bit ALU** — combine add/subtract, logic, shift and MDU under an
-      operation selector
+  - [x] simulates correctly — `100 ÷ 7` → quotient 14, remainder 2 (the stacked
+        cells order their pins by symbol position; each parent is wired to match)
+- [x] MDU — top-level `MDU.dig`: multiplier + divider behind `MDU_op`, shared
+      `LO` / `HI` outputs and `Flag_Z / N / RZ / DZ`
+- [~] **16-bit ALU** — combine add/subtract, logic, shift and MDU under an
+      operation selector. `alu/ALU.dig` from Digital: `ALU_Op` (3-bit) selects
+      add/sub · MDU · shift-left · shift-right · AND · OR · XOR, with
+      `Out` / `Out_HI` and the arithmetic (`ZF/SF/Cout/OF`) + MDU
+      (`Flag_Z/RZ/N/DZ`) flags. Checked with `A=100, B=7`: `ALU_Op=2` →
+      `Out=12800` (`100<<7`), `Out_HI=2` (MDU remainder). Sweep the remaining
+      opcodes to finish.
 
 ## 2. Sequential blocks
 

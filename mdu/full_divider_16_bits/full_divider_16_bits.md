@@ -10,8 +10,16 @@ unrolled into silicon — one row per quotient bit, no clock, no state.
 - **Divisor** — 16-bit unsigned denominator.
 - **Quotient** — 16-bit quotient.
 - **Rest** — 16-bit remainder (`Dividend mod Divisor`).
+- **FDZ** — divide-by-zero flag: set when `Divisor = 0` (a 16-input NOR of the
+  divisor bits). The array itself is not special-cased, so on `Divisor = 0` the
+  quotient still comes out all ones; `FDZ` is what software checks.
+- **FRZ** — remainder-zero flag: set when `Rest = 0`, i.e. the division was
+  exact (a 16-input NOR of the remainder bits).
+- **FN** — negative flag: top bit of the result, provided for a signed
+  interpretation of the quotient.
 
-Operands are unsigned; a signed interpretation is left to software.
+Operands are unsigned; a signed interpretation is left to software. The three
+flags are derived combinationally and add no delay to `Quotient` / `Rest`.
 
 ## How it works
 
@@ -27,10 +35,12 @@ The array is **16 rows**, each a `div_cell_16_bits` block.
 4. **Quotient bit.** The row's borrow-out is quotient bit `15 − i`: `1` when the
    divisor fitted.
 
-After 16 rows the surviving partial remainder is `Rest`.
+After 16 rows the surviving partial remainder is `Rest` and the 16 collected
+borrow-outs are `Quotient`. `FDZ`, `FRZ` and `FN` are then derived
+combinationally from `Divisor`, `Rest` and the result's top bit.
 
-Division by zero is not special-cased: every trial subtraction succeeds, so the
-quotient comes out all ones.
+Division by zero is not special-cased inside the array: every trial subtraction
+succeeds, so the quotient comes out all ones — `FDZ` is the flag that reports it.
 
 ## Structure
 
@@ -55,12 +65,14 @@ structure; faster schemes (carry-save, SRT) are a later optimisation.
 search paths in Digital (Edit → Settings) before simulating, or keep local
 copies.
 
-## Known issue
+## Status
 
-The divider does not simulate cleanly yet. Digital orders a block's pins by the
-vertical position of its `In` / `Out` symbols, not by creation order, and
-several `div_cell_*` blocks have a pin placed at an odd height, so each cell is
-wired to the wrong pins of the cell below it. The visible symptom is a "wire in
-undefined state" inside `div_cell_8_bits`. Fix bottom-up with
-*Edit → Order Inputs/Outputs*: `mux_2_1` → `div_cell_1_bit` → `div_cell_4_bits`
-→ `div_cell_8_bits` → `div_cell_16_bits`. See `div_cell_1_bit.md` for detail.
+Simulates correctly: `100 ÷ 7` → `Quotient = 14`, `Rest = 2`. Digital orders
+each cell's pins by the vertical position of its `In` / `Out` symbols, so the
+stacked cells expose their inputs in different orders
+(`div_cell_1_bit`: `Restore, Rin, Din, Cin`; `div_cell_4_bits`:
+`Cin, Rin, Din, Restore`; `div_cell_8_bits`: `Rin, Din, Cin, Restore`) — each
+parent's wiring is drawn to match its child's order. See `div_cell_1_bit.md`.
+
+Still to check: a few more vectors (`21 ÷ 7` → `FRZ = 1`; `x ÷ 0` → `FDZ = 1`;
+a case with the quotient's top bit set for `FN`).

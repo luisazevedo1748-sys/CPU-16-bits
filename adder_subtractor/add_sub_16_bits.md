@@ -17,7 +17,8 @@ mathematical interpretation is left to software, which reads the status flags.
 ## Outputs
 
 - **Sum** — 16-bit output, the result of the operation.
-- **Cout** — the carry-out described earlier.
+- **Cout** — carry-out of the top bit of the 16-bit adder (an unsigned
+  carry/borrow indicator).
 
 ## Status flags
 

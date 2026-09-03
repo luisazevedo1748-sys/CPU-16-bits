@@ -32,7 +32,9 @@ div_cell_16_bits
 └─ Not                     Restore = ~Cout
 ```
 
-## Known issue
+## Notes
 
-Inherits the pin-order mismatch of the cells below it — see `div_cell_1_bit.md`.
-No screenshot yet (`div_cell_16_bits.png` still to be exported from Digital).
+Each cell down the chain orders its pins by symbol position, and every parent is
+wired to match (see `div_cell_1_bit.md`); the full array simulates correctly
+(`100 ÷ 7` → quotient 14, remainder 2). No screenshot yet
+(`div_cell_16_bits.png` still to be exported from Digital).
