@@ -65,14 +65,3 @@ structure; faster schemes (carry-save, SRT) are a later optimisation.
 search paths in Digital (Edit → Settings) before simulating, or keep local
 copies.
 
-## Status
-
-Simulates correctly: `100 ÷ 7` → `Quotient = 14`, `Rest = 2`. Digital orders
-each cell's pins by the vertical position of its `In` / `Out` symbols, so the
-stacked cells expose their inputs in different orders
-(`div_cell_1_bit`: `Restore, Rin, Din, Cin`; `div_cell_4_bits`:
-`Cin, Rin, Din, Restore`; `div_cell_8_bits`: `Rin, Din, Cin, Restore`) — each
-parent's wiring is drawn to match its child's order. See `div_cell_1_bit.md`.
-
-Still to check: a few more vectors (`21 ÷ 7` → `FRZ = 1`; `x ÷ 0` → `FDZ = 1`;
-a case with the quotient's top bit set for `FN`).
