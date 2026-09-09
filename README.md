@@ -131,29 +131,19 @@ keeps its library name and references `ALU.dig` directly.
 
 ## Exceptions to from-scratch
 
-Nearly every block is built bottom-up from transistors and logic gates. Two are
-not, both for practical reasons and both flagged in their own `.md`:
+Nearly every block is built bottom-up from transistors and logic gates. One is
+not, for practical reasons, and it is flagged in its own `.md`:
 
 - **ALU result mux** — the 16-bit, 8-way output multiplexer in `alu/ALU.dig`
   uses Digital's native `Multiplexer`. Building it by hand is 500+ connections
   on one sheet.
-- **Program counter storage** — the PC (ROADMAP §2) uses Digital's native
-  register block so it powers up holding a defined `0`. A scratch register with
-  a hand-drawn 16-bit reset line would work but is mechanical wiring only; the
-  storage principle is already covered by the hand-built register chain.
-
-The register **file** and every general-purpose register are fully hand-built
-(`latch_sr` → `d_latch` → `flip_flop_d` → `register_4bits` → `register_16bits`)
-and deliberately have **no reset** — like real RISC-V / ARM register files, they
-come up undefined and are zeroed in software. See
-`registers/register_file/register_16bits/register_16bits.md`.
 
 ## Authorship
 
 All circuits in this repository were designed and built by me in the Digital
 simulator — the transistor-level gates, the adders, the multiplexers, the
-multiplier cells and every wiring decision (bar the two native-component
-exceptions noted above). The explanations in each `.md` reflect my own
+multiplier cells and every wiring decision (bar the one native-component
+exception noted above). The explanations in each `.md` reflect my own
 understanding of how the blocks work.
 
 AI assistance (Claude) was used only for the work around the circuits: tidying

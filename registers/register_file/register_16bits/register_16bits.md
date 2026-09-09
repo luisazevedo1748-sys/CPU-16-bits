@@ -53,34 +53,6 @@ Plus two `Splitter` primitives (`16 ↔ 4,4,4,4`).
   it as custom component search paths, because Digital only searches
   sub-directories of the file it opens.
 
-## Design decision — no reset line
-
-`register_16bits`, and everything built from it (`register_file`, and later any
-general-purpose register), has **no reset / clear input**. This is deliberate
-and matches how register files are actually built in real RISC-V and ARM cores:
-
-- A global reset routed to every bit of every register is expensive silicon —
-  an extra gate on each flip-flop plus a net wide enough to drive all of them
-  across the whole file. It makes the block larger, slower and hotter for
-  something the hardware does not need.
-- Real general-purpose registers have no defined power-on value. They come up
-  holding whatever the transistors settled into ("garbage"); the firmware or
-  bootloader zeroes the ones it cares about with ordinary writes in its first
-  instructions.
-
-So the registers here start undefined and are cleared **in software**: drive
-`Data_In = 0`, pick the register with `WA`, pulse `WE = 1`.
-
-### How a synchronous reset would be built, if wanted
-
-One **AND gate per bit** in front of each flip-flop's `D`: one input is the
-normal data, the other is the reset signal **inverted**. Reset low → data
-passes unchanged; reset high → the AND forces `D = 0` and the next clock edge
-latches `0` into every bit. For 16 bits that is 16 AND gates plus a reset net to
-all of them; for the file, that again per register. The `Program Counter` is the
-one place this matters (it must power up at `0`), and there the project uses
-Digital's native register block instead of hand-wiring it — see ROADMAP §2.
-
 ## Status
 
 Simulated in Digital and works: `EN = 1` loads a 16-bit value on the edge;

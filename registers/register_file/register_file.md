@@ -53,9 +53,6 @@ register_file
 - Four registers because the address pins are 2 bits. The final count is an ISA
   decision (see ROADMAP §3); widening `WA` / `RA1` / `RA2` and adding
   `register_16bits` instances scales it.
-- **No reset input** — a deliberate design choice, the same as real RISC-V / ARM
-  register files. The registers power up undefined and are zeroed in software
-  through the write port. Full rationale in `register_16bits.md`.
 - Pin order follows the vertical position of the `In` / `Out` symbols; `datapath`
   is wired to match. If it ever comes out wrong, fix with
   *Edit → Order Inputs/Outputs* and re-check `datapath`.
