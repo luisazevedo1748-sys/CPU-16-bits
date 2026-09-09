@@ -54,7 +54,17 @@ its own commit once it works.
 - [x] Register file — `register_file`, 4 × `register_16bits` with a demux write
       port (`WE` steered by `WA`) and two 16-bit read-port muxes (`RA1`/`RA2`);
       4 registers for now (2-bit addresses), final count is an ISA decision
-- [ ] Program counter (counter with load)
+- [ ] Program counter — 16-bit register with load and increment.
+      **Exception to from-scratch:** the PC uses Digital's **native register**
+      block for its storage, because it must hold a defined `0` at power-on,
+      before any software runs — otherwise the first fetch reads a random
+      address and the machine crashes with no chance for code to recover. A
+      scratch register plus a hand-drawn 16-bit synchronous reset (16 AND gates
+      + a reset net) would do the job but is pure mechanical wiring that adds
+      nothing to the exercise; the retention logic itself is already proven by
+      `latch_sr` → … → `register_16bits`. Same kind of pragmatic exception as
+      the ALU's 16:1 output mux. General-purpose registers stay hand-built and
+      reset-free (see `register_16bits.md`).
 - [ ] RAM
 
 ## 3. Control
