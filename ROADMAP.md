@@ -51,7 +51,9 @@ its own commit once it works.
       clock inverted between them); edge direction to confirm in simulation
 - [x] 16-bit register — `register_4bits` (4 × `flip_flop_d` + a D-vs-`Q`
       load-enable mux), width-extended to `register_16bits` (4 × `register_4bits`)
-- [ ] Register file (register count defined by the ISA)
+- [x] Register file — `register_file`, 4 × `register_16bits` with a demux write
+      port (`WE` steered by `WA`) and two 16-bit read-port muxes (`RA1`/`RA2`);
+      4 registers for now (2-bit addresses), final count is an ISA decision
 - [ ] Program counter (counter with load)
 - [ ] RAM
 
@@ -67,7 +69,11 @@ its own commit once it works.
 
 ## 4. Integration
 
-- [ ] Full datapath (PC → memory → registers → ALU → write-back)
+- [~] Full datapath (PC → memory → registers → ALU → write-back)
+      — `datapath/datapath.dig` from Digital: `register_file` → `ALU` →
+      write-back mux (`S` picks `Data_In` vs ALU `Out`). Register read/compute/
+      write-back loop works; PC, instruction memory and the decoder still to
+      come, and every control line is a primary input for now
 - [ ] Execute the first instruction
 - [ ] Test program in memory
 - [ ] CPU running a complete program

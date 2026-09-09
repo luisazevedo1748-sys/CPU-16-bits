@@ -61,11 +61,16 @@ bus/
 └─ switch_1bit/                 1-bit CMOS transmission gate (leaf of tristate_16bits)
 
 registers/   (sequential storage)
-└─ register_16bits/             16-bit register, load enable (4 x register_4bits)
-   └─ register_4bits/           4-bit register, D-vs-Q mux for load enable
-      └─ flip_flop_d/           edge-triggered D flip-flop (master-slave)
-         └─ d_latch/            gated D latch
-            └─ latch_sr/        NOR SR latch (the bistable cell)
+└─ register_file/               4 x 16-bit register file, 2 read + 1 write port
+   └─ register_16bits/          16-bit register, load enable (4 x register_4bits)
+      └─ register_4bits/        4-bit register, D-vs-Q mux for load enable
+         └─ flip_flop_d/        edge-triggered D flip-flop (master-slave)
+            └─ d_latch/         gated D latch
+               └─ latch_sr/     NOR SR latch (the bistable cell)
+
+datapath/   (register file + ALU + write-back)
+└─ datapath.dig                 read RA1/RA2 -> ALU -> write-back to WA
+                                (control lines still primary inputs)
 ```
 
 ## Module status
@@ -80,9 +85,9 @@ registers/   (sequential storage)
 | ALU | Drafted (add/sub, shift, logic paths compose working blocks; shift + MDU-remainder paths spot-checked with `A=100, B=7`) |
 | Decoders (4→16, 3→8) | Drafted from Digital |
 | Bus primitives (`switch_1bit`, `tristate_16bits`) | Drafted from Digital |
-| Registers and memory | 16-bit register with load enable done (`latch_sr` → `d_latch` → `flip_flop_d` → `register_4bits` → `register_16bits`); register file, PC and RAM not started |
+| Registers and memory | `latch_sr` → `d_latch` → `flip_flop_d` → `register_4bits` → `register_16bits` → `register_file` (4 × 16-bit, 2 read / 1 write) done from Digital; PC and RAM not started |
 | Control unit | Not started |
-| Datapath / CPU | Not started |
+| Datapath / CPU | `datapath.dig` composes `register_file` + `ALU` + write-back mux, from Digital; control lines are still primary inputs |
 
 See [`ROADMAP.md`](ROADMAP.md) for the detailed plan.
 
@@ -104,15 +109,19 @@ sub-directories of the file it opens:
 - `alu/ALU.dig`: add `adder_subtractor/`, `mdu/`, and the two shifter folders
   under `alu/`.
 - `registers/` blocks: each block sits one folder above its child, so add the
-  nested folders down to `latch_sr/` when opening `register_16bits.dig` or
-  `register_4bits.dig`.
+  nested folders down to `latch_sr/` when opening `register_file.dig`,
+  `register_16bits.dig` or `register_4bits.dig`.
+- `datapath/datapath.dig`: add `registers/register_file/` (and the folders below
+  it) plus everything `alu/ALU.dig` needs — `alu/`, `adder_subtractor/`, `mdu/`
+  and the two shifter folders under `alu/`.
 
 The wide bus muxes keep their library names (`mux_2_1_16bits`, `mux_2_1_4b`) and
 the shifters keep theirs (`shift_left_16bits`, `shift_right_16bits`), so parents
 resolve them with no `.dig` edit. The sequential blocks were renamed from their
 library names (`Latch_SR`, `D_latch`, `flip_flop_D`, `Registo_4bits`,
-`Registro_16bits`); each parent's `<elementName>` reference was updated to the
-new child name, with no other change to the `.dig`.
+`Registro_16bits`, `Register_final`); each parent's `<elementName>` reference was
+updated to the new child name, with no other change to the `.dig`. `datapath.dig`
+keeps its library name and references `ALU.dig` directly.
 
 ## Conventions
 
