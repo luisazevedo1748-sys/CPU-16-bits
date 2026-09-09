@@ -48,7 +48,7 @@ its own commit once it works.
 - [x] SR latch — `latch_sr`, cross-coupled NOR pair, under `registers/`
 - [x] Gated D latch — `d_latch` (2 AND + Not in front of `latch_sr`)
 - [x] D flip-flop (clocked) — `flip_flop_d`, master–slave (two `d_latch`,
-      clock inverted between them); edge direction to confirm in simulation
+      clock inverted between them); simulates correctly
 - [x] 16-bit register — `register_4bits` (4 × `flip_flop_d` + a D-vs-`Q`
       load-enable mux), width-extended to `register_16bits` (4 × `register_4bits`)
 - [x] Register file — `register_file`, 4 × `register_16bits` with a demux write
@@ -71,9 +71,9 @@ its own commit once it works.
 
 - [~] Full datapath (PC → memory → registers → ALU → write-back)
       — `datapath/datapath.dig` from Digital: `register_file` → `ALU` →
-      write-back mux (`S` picks `Data_In` vs ALU `Out`). Register read/compute/
-      write-back loop works; PC, instruction memory and the decoder still to
-      come, and every control line is a primary input for now
+      write-back mux (`S` picks `Data_In` vs ALU `Out`). Register read →
+      compute → write-back simulates correctly; PC, instruction memory and the
+      decoder still to come, and every control line is a primary input for now
 - [ ] Execute the first instruction
 - [ ] Test program in memory
 - [ ] CPU running a complete program

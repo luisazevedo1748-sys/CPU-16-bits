@@ -53,5 +53,5 @@ register_4bits
 
 ## Status
 
-Saved from Digital. Verify: `EN = 1` loads `D` on the edge; `EN = 0` holds
+Simulated in Digital and works: `EN = 1` loads `D` on the edge; `EN = 0` holds
 across any number of ticks; all four bits change on the same edge.

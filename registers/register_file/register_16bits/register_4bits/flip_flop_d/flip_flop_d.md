@@ -48,12 +48,11 @@ flip_flop_d
 - Pin order follows the vertical position of the `In` / `Out` symbols
   (`D, Clk` → `Q, ¬Q`); `register_4bits` is wired to match.
 - Which physical edge (rising or falling) captures the data is set by which
-  latch gets the inverted clock — confirm it in simulation and note it here.
+  latch gets the inverted clock.
 - No asynchronous set/reset and no explicit enable: holding a value across a
   tick is done one level up, by `register_4bits` feeding `Q` back through a mux.
 
 ## Status
 
-Saved from Digital. Verify: `Q` takes the value of `D` only at the clock edge
-and ignores changes on `D` between edges; note whether it triggers on the rising
-or the falling edge.
+Simulated in Digital and works: `Q` takes the value of `D` only on the clock
+edge and ignores any changes on `D` between edges.

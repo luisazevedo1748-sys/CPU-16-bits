@@ -81,13 +81,13 @@ datapath/   (register file + ALU + write-back)
 | Multiplexers (2:1 → 16:1) | Complete |
 | 16-bit adder / subtractor + flags | Complete |
 | Multiply/divide unit (MDU) | 16x16 multiplier done; divider simulates correctly (`100 ÷ 7` → 14 r 2); top-level `MDU.dig` wraps both behind `MDU_op` |
-| 16-bit barrel shifters (left / right) | Drafted from Digital |
-| ALU | Drafted (add/sub, shift, logic paths compose working blocks; shift + MDU-remainder paths spot-checked with `A=100, B=7`) |
-| Decoders (4→16, 3→8) | Drafted from Digital |
-| Bus primitives (`switch_1bit`, `tristate_16bits`) | Drafted from Digital |
-| Registers and memory | `latch_sr` → `d_latch` → `flip_flop_d` → `register_4bits` → `register_16bits` → `register_file` (4 × 16-bit, 2 read / 1 write) done from Digital; PC and RAM not started |
+| 16-bit barrel shifters (left / right) | Complete — logical + arithmetic right shift, simulate correctly |
+| ALU | Complete — every `ALU_Op` swept in Digital, all operations work |
+| Decoders (4→16, 3→8) | Complete |
+| Bus primitives (`switch_1bit`, `tristate_16bits`) | Complete |
+| Registers and memory | `latch_sr` → `d_latch` → `flip_flop_d` → `register_4bits` → `register_16bits` → `register_file` (4 × 16-bit, 2 read / 1 write); all simulate correctly in Digital. PC and RAM not started |
 | Control unit | Not started |
-| Datapath / CPU | `datapath.dig` composes `register_file` + `ALU` + write-back mux, from Digital; control lines are still primary inputs |
+| Datapath / CPU | `datapath.dig` composes `register_file` + `ALU` + write-back mux; read → compute → write-back simulates correctly. Control lines are still primary inputs |
 
 See [`ROADMAP.md`](ROADMAP.md) for the detailed plan.
 

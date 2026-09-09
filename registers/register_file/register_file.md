@@ -61,6 +61,6 @@ register_file
 
 ## Status
 
-Saved from Digital. Verify: write a value with `WE = 1`, `WA = k`; read it back
-on `RA1 = k` and `RA2 = k`; check the other three registers are untouched and
-that `WE = 0` blocks all writes.
+Simulated in Digital and works: a value written with `WE = 1`, `WA = k` reads
+back on `RA1 = k` and `RA2 = k`; the other three registers stay untouched and
+`WE = 0` blocks all writes.

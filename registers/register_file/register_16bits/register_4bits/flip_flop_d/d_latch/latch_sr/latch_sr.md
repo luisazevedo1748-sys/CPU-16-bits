@@ -54,6 +54,6 @@ Two `NOr` gates (Digital primitives) cross-coupled. No sub-circuits.
 
 ## Status
 
-Saved from Digital. Verify: pulse `Set` → `Q = 1` and stays after `Set`
-returns to `0`; pulse `Reset` → `Q = 0` and holds; `Set = Reset = 0` holds the
+Simulated in Digital and works: `Set` drives `Q = 1` and it holds after `Set`
+returns to `0`; `Reset` drives `Q = 0` and holds; `Set = Reset = 0` keeps the
 last value.

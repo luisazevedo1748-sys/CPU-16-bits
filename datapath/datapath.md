@@ -72,7 +72,7 @@ datapath
 
 ## Status
 
-Saved from Digital. Verify: load two registers via `Data_In` / `WA` / `WE` with
-`S = 0`; read them on `RA1` / `RA2`; set `S = 1`, `ALU_Op` for add, `WE = 1`,
-`WA` to a third register; after the edge that register holds `Out_A + Out_B` and
-`Out` / `ZF` / `SF` match.
+Simulated in Digital and works: two registers loaded via `Data_In` / `WA` /
+`WE` (`S = 0`), then with `S = 1` and `ALU_Op` = add the ALU result written back
+to a third register matches `Out_A + Out_B`, with `Out` / `ZF` / `SF`
+consistent.

@@ -55,5 +55,5 @@ d_latch
 
 ## Status
 
-Saved from Digital. Verify: with `Clk = 1`, `Q` follows `D`; drop `Clk` to `0`
-and `Q` stays put regardless of `D`.
+Simulated in Digital and works: with `Clk = 1`, `Q` follows `D`; with
+`Clk = 0`, `Q` holds regardless of `D`.

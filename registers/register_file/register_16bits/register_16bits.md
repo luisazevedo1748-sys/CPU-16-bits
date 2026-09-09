@@ -55,5 +55,5 @@ Plus two `Splitter` primitives (`16 ↔ 4,4,4,4`).
 
 ## Status
 
-Saved from Digital. Verify: `EN = 1` loads a 16-bit value on the edge;
-`EN = 0` holds it across ticks; read `Q` back through a probe or 7-seg.
+Simulated in Digital and works: `EN = 1` loads a 16-bit value on the edge;
+`EN = 0` holds it across ticks.
