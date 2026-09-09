@@ -59,6 +59,13 @@ demux_decoder/
 bus/
 ├─ tristate_16bits.dig          16-bit tri-state bus driver (Enable -> drive / high-Z)
 └─ switch_1bit/                 1-bit CMOS transmission gate (leaf of tristate_16bits)
+
+registers/   (sequential storage)
+└─ register_16bits/             16-bit register, load enable (4 x register_4bits)
+   └─ register_4bits/           4-bit register, D-vs-Q mux for load enable
+      └─ flip_flop_d/           edge-triggered D flip-flop (master-slave)
+         └─ d_latch/            gated D latch
+            └─ latch_sr/        NOR SR latch (the bistable cell)
 ```
 
 ## Module status
@@ -73,7 +80,7 @@ bus/
 | ALU | Drafted (add/sub, shift, logic paths compose working blocks; shift + MDU-remainder paths spot-checked with `A=100, B=7`) |
 | Decoders (4→16, 3→8) | Drafted from Digital |
 | Bus primitives (`switch_1bit`, `tristate_16bits`) | Drafted from Digital |
-| Registers and memory | Not started |
+| Registers and memory | 16-bit register with load enable done (`latch_sr` → `d_latch` → `flip_flop_d` → `register_4bits` → `register_16bits`); register file, PC and RAM not started |
 | Control unit | Not started |
 | Datapath / CPU | Not started |
 
@@ -96,13 +103,16 @@ sub-directories of the file it opens:
   `mdu/full_divider_16_bits/full_divider_16_bits.dig`.
 - `alu/ALU.dig`: add `adder_subtractor/`, `mdu/`, and the two shifter folders
   under `alu/`.
+- `registers/` blocks: each block sits one folder above its child, so add the
+  nested folders down to `latch_sr/` when opening `register_16bits.dig` or
+  `register_4bits.dig`.
 
 The wide bus muxes keep their library names (`mux_2_1_16bits`, `mux_2_1_4b`) and
 the shifters keep theirs (`shift_left_16bits`, `shift_right_16bits`), so parents
-resolve them with no `.dig` edit.
-
-`.png` screenshots for the shifters, `decoder_3to8`, `tristate_16bits` and
-`switch_1bit` are still to be exported from Digital.
+resolve them with no `.dig` edit. The sequential blocks were renamed from their
+library names (`Latch_SR`, `D_latch`, `flip_flop_D`, `Registo_4bits`,
+`Registro_16bits`); each parent's `<elementName>` reference was updated to the
+new child name, with no other change to the `.dig`.
 
 ## Conventions
 

@@ -45,9 +45,12 @@ its own commit once it works.
 
 ## 2. Sequential blocks
 
-- [ ] SR latch
-- [ ] D flip-flop (clocked)
-- [ ] 16-bit register
+- [x] SR latch — `latch_sr`, cross-coupled NOR pair, under `registers/`
+- [x] Gated D latch — `d_latch` (2 AND + Not in front of `latch_sr`)
+- [x] D flip-flop (clocked) — `flip_flop_d`, master–slave (two `d_latch`,
+      clock inverted between them); edge direction to confirm in simulation
+- [x] 16-bit register — `register_4bits` (4 × `flip_flop_d` + a D-vs-`Q`
+      load-enable mux), width-extended to `register_16bits` (4 × `register_4bits`)
 - [ ] Register file (register count defined by the ISA)
 - [ ] Program counter (counter with load)
 - [ ] RAM

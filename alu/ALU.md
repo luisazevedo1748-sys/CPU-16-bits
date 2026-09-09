@@ -34,7 +34,7 @@ once the inputs are stable.
 | Pin | Width | Meaning |
 |---|---|---|
 | `Out` | 16 | Main result, chosen by `ALU_Op`. |
-| `Out_HI` | 16 | Secondary result, wired straight from the MDU: product high word when `MDU_op` = multiply, **remainder** when `MDU_op` = divide. It follows `A` / `B` / `MDU_op` regardless of `ALU_Op`, so it is only meaningful to read for `ALU_Op = 1`. |
+| `Out_HI` | 16 | Secondary result, wired straight from the MDU: product high word when `MDU_op` = multiply, **remainder** when `MDU_op` = divide. It follows `A` / `B` / `MDU_op` regardless of `ALU_Op`, so it is only meaningful to read for `ALU_Op = 1`. (Labelled `Out_HI/Rest` on the circuit.) |
 
 ### Operation table
 

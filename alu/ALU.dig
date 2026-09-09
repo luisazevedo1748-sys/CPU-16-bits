@@ -299,7 +299,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>Out_HI</string>
+          <string>Out_HI/Rest</string>
         </entry>
         <entry>
           <string>Bits</string>
