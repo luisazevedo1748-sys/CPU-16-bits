@@ -67,6 +67,6 @@ program_counter
 
 ## Status
 
-Saved from Digital. Verify in simulation: from `Reset`, `PC_Out` steps
-0, 1, 2, 3, … each edge; `Jump_EN = 1` with `Jump_Addr = k` makes the next value
-`k`; `Reset = 1` returns it to 0.
+Simulated in Digital and works: from `Reset`, `PC_Out` steps 0, 1, 2, 3, … each
+edge; `Jump_EN = 1` with `Jump_Addr = k` makes the next value `k`; `Reset = 1`
+returns it to 0.

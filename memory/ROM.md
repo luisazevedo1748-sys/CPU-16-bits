@@ -52,6 +52,6 @@ All Digital primitives.
 
 ## Status
 
-Saved from Digital. Combinational lookup: `Data_Out` follows `Address` with no
-clock; `Sel = 1` zeroes the output. Verify the four stored words read back as
-`0x0001`–`0x0004`.
+Simulated in Digital and works: combinational lookup — `Data_Out` follows
+`Address` with no clock and reads back the four words `0x0001`–`0x0004`;
+`Sel = 1` zeroes the output.

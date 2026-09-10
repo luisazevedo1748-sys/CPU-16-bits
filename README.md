@@ -91,7 +91,7 @@ datapath/   (register file + ALU + write-back)
 | ALU | Complete — every `ALU_Op` swept in Digital, all operations work |
 | Decoders (4→16, 3→8) | Complete |
 | Bus primitives (`switch_1bit`, `tristate_16bits`) | Complete |
-| Registers and memory | `latch_sr` → `d_latch` → `flip_flop_d` → `register_4bits` → `register_16bits` → `register_file` (4 × 16-bit, 2 read / 1 write); all simulate correctly in Digital. `register_16bits_reset` (synchronous reset), `program_counter` (+1 / jump / reset) and a 4-word demo `ROM` drafted — verify in simulation. RAM not started |
+| Registers and memory | `latch_sr` → `d_latch` → `flip_flop_d` → `register_4bits` → `register_16bits` → `register_file` (4 × 16-bit, 2 read / 1 write), plus `register_16bits_reset` (synchronous reset), `program_counter` (+1 / jump / reset) and a 4-word demo `ROM` — all simulate correctly in Digital. RAM not started |
 | Control unit | Not started |
 | Datapath / CPU | `datapath.dig` composes `register_file` + `ALU` + write-back mux; read → compute → write-back simulates correctly. Control lines are still primary inputs |
 

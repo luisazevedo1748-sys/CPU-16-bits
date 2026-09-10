@@ -58,14 +58,15 @@ its own commit once it works.
       `register_16bits` with a data-vs-`0` mux on `D` (`Reset` selects `0`). The
       "with reset" variant; plain `register_16bits` is the "without" one, choice
       made per use.
-- [~] Program counter — `registers/program_counter/`, a `register_16bits_reset`
+- [x] Program counter — `registers/program_counter/`, a `register_16bits_reset`
       + Digital's native `Add` for `PC + 1` + a mux picking `PC + 1` vs
-      `Jump_Addr` (`Jump_EN`); `Reset` clears to 0. Drafted from Digital, verify
-      in simulation. The native `Add` is a stated from-scratch exception — the
-      ALU's `add_sub_16_bits` is already built and proven.
-- [~] Instruction memory (ROM) — `memory/ROM.dig`, a hand-built 4-word demo
-      (mux + hardwired constants + an output-enable mux). The CPU will use
-      Digital's native `ROM` for the full 16-bit address space.
+      `Jump_Addr` (`Jump_EN`); `Reset` clears to 0. Simulates correctly
+      (steps 0, 1, 2, …; jumps on `Jump_EN`; `Reset` → 0). The native `Add` is a
+      stated from-scratch exception — the ALU's `add_sub_16_bits` is already
+      built and proven.
+- [x] Instruction memory (ROM) — `memory/ROM.dig`, a hand-built 4-word demo
+      (mux + hardwired constants + an output-enable mux), simulates correctly.
+      The CPU will use Digital's native `ROM` for the full 16-bit address space.
 - [ ] RAM
 
 ## 3. Control

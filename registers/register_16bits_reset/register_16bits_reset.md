@@ -60,5 +60,5 @@ register_16bits_reset
 
 ## Status
 
-Saved from Digital. Verify in simulation: `Reset = 1`, `EN = 1` clears `Q` to 0
-on the edge; `Reset = 0` behaves exactly like `register_16bits`.
+Simulated in Digital and works: `Reset = 1`, `EN = 1` clears `Q` to 0 on the
+edge; `Reset = 0` behaves exactly like `register_16bits`.
