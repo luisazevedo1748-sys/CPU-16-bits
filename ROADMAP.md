@@ -54,7 +54,18 @@ its own commit once it works.
 - [x] Register file — `register_file`, 4 × `register_16bits` with a demux write
       port (`WE` steered by `WA`) and two 16-bit read-port muxes (`RA1`/`RA2`);
       4 registers for now (2-bit addresses), final count is an ISA decision
-- [ ] Program counter — 16-bit register with load and increment.
+- [x] Register with synchronous reset — `register_16bits_reset`, a
+      `register_16bits` with a data-vs-`0` mux on `D` (`Reset` selects `0`). The
+      "with reset" variant; plain `register_16bits` is the "without" one, choice
+      made per use.
+- [~] Program counter — `registers/program_counter/`, a `register_16bits_reset`
+      + Digital's native `Add` for `PC + 1` + a mux picking `PC + 1` vs
+      `Jump_Addr` (`Jump_EN`); `Reset` clears to 0. Drafted from Digital, verify
+      in simulation. The native `Add` is a stated from-scratch exception — the
+      ALU's `add_sub_16_bits` is already built and proven.
+- [~] Instruction memory (ROM) — `memory/ROM.dig`, a hand-built 4-word demo
+      (mux + hardwired constants + an output-enable mux). The CPU will use
+      Digital's native `ROM` for the full 16-bit address space.
 - [ ] RAM
 
 ## 3. Control
@@ -72,8 +83,9 @@ its own commit once it works.
 - [~] Full datapath (PC → memory → registers → ALU → write-back)
       — `datapath/datapath.dig` from Digital: `register_file` → `ALU` →
       write-back mux (`S` picks `Data_In` vs ALU `Out`). Register read →
-      compute → write-back simulates correctly; PC, instruction memory and the
-      decoder still to come, and every control line is a primary input for now
+      compute → write-back simulates correctly. `program_counter` and a demo
+      `ROM` exist as standalone blocks; wiring them into the datapath, plus the
+      decoder, is still to come, and every control line is a primary input for now
 - [ ] Execute the first instruction
 - [ ] Test program in memory
 - [ ] CPU running a complete program

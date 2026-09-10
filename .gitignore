@@ -10,3 +10,6 @@ desktop.ini
 
 # Exports temporários
 /export/
+
+# Notas de trabalho locais (justificações de decisões) — não versionar
+/notas.txt

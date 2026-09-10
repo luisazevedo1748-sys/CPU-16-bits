@@ -61,12 +61,18 @@ bus/
 └─ switch_1bit/                 1-bit CMOS transmission gate (leaf of tristate_16bits)
 
 registers/   (sequential storage)
-└─ register_file/               4 x 16-bit register file, 2 read + 1 write port
-   └─ register_16bits/          16-bit register, load enable (4 x register_4bits)
-      └─ register_4bits/        4-bit register, D-vs-Q mux for load enable
-         └─ flip_flop_d/        edge-triggered D flip-flop (master-slave)
-            └─ d_latch/         gated D latch
-               └─ latch_sr/     NOR SR latch (the bistable cell)
+├─ register_file/               4 x 16-bit register file, 2 read + 1 write port
+│  └─ register_16bits/          16-bit register, load enable (4 x register_4bits)
+│     └─ register_4bits/        4-bit register, D-vs-Q mux for load enable
+│        └─ flip_flop_d/        edge-triggered D flip-flop (master-slave)
+│           └─ d_latch/         gated D latch
+│              └─ latch_sr/     NOR SR latch (the bistable cell)
+├─ register_16bits_reset/       register_16bits + a data-vs-0 mux -> synchronous reset
+└─ program_counter/             PC: register_16bits_reset + native Add (+1) + jump mux
+
+memory/
+└─ ROM.dig                      4-word demonstration ROM (mux + constants);
+                                the real instruction memory uses Digital's native ROM
 
 datapath/   (register file + ALU + write-back)
 └─ datapath.dig                 read RA1/RA2 -> ALU -> write-back to WA
@@ -85,7 +91,7 @@ datapath/   (register file + ALU + write-back)
 | ALU | Complete — every `ALU_Op` swept in Digital, all operations work |
 | Decoders (4→16, 3→8) | Complete |
 | Bus primitives (`switch_1bit`, `tristate_16bits`) | Complete |
-| Registers and memory | `latch_sr` → `d_latch` → `flip_flop_d` → `register_4bits` → `register_16bits` → `register_file` (4 × 16-bit, 2 read / 1 write); all simulate correctly in Digital. PC and RAM not started |
+| Registers and memory | `latch_sr` → `d_latch` → `flip_flop_d` → `register_4bits` → `register_16bits` → `register_file` (4 × 16-bit, 2 read / 1 write); all simulate correctly in Digital. `register_16bits_reset` (synchronous reset), `program_counter` (+1 / jump / reset) and a 4-word demo `ROM` drafted — verify in simulation. RAM not started |
 | Control unit | Not started |
 | Datapath / CPU | `datapath.dig` composes `register_file` + `ALU` + write-back mux; read → compute → write-back simulates correctly. Control lines are still primary inputs |
 
@@ -111,6 +117,12 @@ sub-directories of the file it opens:
 - `registers/` blocks: each block sits one folder above its child, so add the
   nested folders down to `latch_sr/` when opening `register_file.dig`,
   `register_16bits.dig` or `register_4bits.dig`.
+- `registers/register_16bits_reset/` and `registers/program_counter/`: both reuse
+  `register_16bits` from `registers/register_file/register_16bits/` (it is not
+  copied into their folders), so add that folder and the ones below it.
+  `program_counter.dig` also needs `registers/register_16bits_reset/`.
+- `memory/ROM.dig`: self-contained (only Digital primitives), no search path
+  needed.
 - `datapath/datapath.dig`: add `registers/register_file/` (and the folders below
   it) plus everything `alu/ALU.dig` needs — `alu/`, `adder_subtractor/`, `mdu/`
   and the two shifter folders under `alu/`.
@@ -119,9 +131,12 @@ The wide bus muxes keep their library names (`mux_2_1_16bits`, `mux_2_1_4b`) and
 the shifters keep theirs (`shift_left_16bits`, `shift_right_16bits`), so parents
 resolve them with no `.dig` edit. The sequential blocks were renamed from their
 library names (`Latch_SR`, `D_latch`, `flip_flop_D`, `Registo_4bits`,
-`Registro_16bits`, `Register_final`); each parent's `<elementName>` reference was
-updated to the new child name, with no other change to the `.dig`. `datapath.dig`
-keeps its library name and references `ALU.dig` directly.
+`Registro_16bits`, `Register_final`, `Registo16bits_reset`); each parent's
+`<elementName>` reference was updated to the new child name, with no other change
+to the `.dig`. `datapath.dig` and `program_counter.dig` keep their library names;
+`program_counter.dig`'s reference to its child was updated to
+`register_16bits_reset.dig`. `ROM.dig` keeps its library name and was not edited
+(it uses only Digital primitives).
 
 ## Conventions
 
@@ -131,19 +146,26 @@ keeps its library name and references `ALU.dig` directly.
 
 ## Exceptions to from-scratch
 
-Nearly every block is built bottom-up from transistors and logic gates. One is
-not, for practical reasons, and it is flagged in its own `.md`:
+Nearly every block is built bottom-up from transistors and logic gates. A few
+are not, for practical reasons, and each is flagged in its own `.md`:
 
 - **ALU result mux** — the 16-bit, 8-way output multiplexer in `alu/ALU.dig`
   uses Digital's native `Multiplexer`. Building it by hand is 500+ connections
   on one sheet.
+- **Program counter increment** — `registers/program_counter/program_counter.dig`
+  uses Digital's native `Add` for `PC + 1`. The hand-built `add_sub_16_bits`
+  works here bit-for-bit; the adder was already built and proven for the ALU, so
+  a second hand-wired one would only repeat that work.
+- **Instruction memory** — the CPU will use Digital's native `ROM`. A 16-bit
+  address space is 65536 words; `memory/ROM.dig` is a hand-built 4-word demo of
+  what a ROM does, not the memory the CPU runs from.
 
 ## Authorship
 
 All circuits in this repository were designed and built by me in the Digital
 simulator — the transistor-level gates, the adders, the multiplexers, the
-multiplier cells and every wiring decision (bar the one native-component
-exception noted above). The explanations in each `.md` reflect my own
+multiplier cells and every wiring decision (bar the few native-component
+exceptions noted above). The explanations in each `.md` reflect my own
 understanding of how the blocks work.
 
 AI assistance (Claude) was used only for the work around the circuits: tidying
