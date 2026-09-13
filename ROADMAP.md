@@ -67,29 +67,60 @@ its own commit once it works.
 - [x] Instruction memory (ROM) — `memory/ROM.dig`, a hand-built 4-word demo
       (mux + hardwired constants + an output-enable mux), simulates correctly.
       The CPU will use Digital's native `ROM` for the full 16-bit address space.
-- [ ] RAM
+- [x] RAM — `memory/RAM.dig`, 16 x 16-bit words: a 4-bit decoder picks one
+      one-hot line per word, gating that word's register `EN` (write) and its
+      `tristate_16bits` `Enable` (read) independently; all 16 tristates share one
+      output bus. Simulates correctly
 
 ## 3. Control
 
-- [ ] Define the ISA — see `docs/isa.md` (to be created):
-  - number and width of registers
-  - 16-bit instruction format (opcode bits vs. operand bits)
-  - addressing modes
-  - load/store or not
-- [ ] Instruction decoder
-- [ ] State machine / control signals (fetch → decode → execute)
+- [x] Define the ISA — 4 registers, 16-bit R/I/J/F instruction formats, 16
+      opcodes plus an 8-way `funct` field under opcode `0000`, load/store via
+      `LOAD`/`STORE`, a stack (`PUSH`/`POP`/`CALL`/`RET`). See `cpu/CPU.md`
+- [x] Instruction decoder — two-level, native `Decoder` (4→16 primary on
+      opcode, 3→8 secondary on `funct`) gated by an AND per sub-instruction,
+      inside `cpu/CPU.dig`. The hand-built `decoder_4to16bits`/`decoder_3to8`
+      under `demux_decoder/` stay standalone practice blocks, unused here
+- [x] State machine / control signals (fetch → decode → execute) — no
+      separate state machine needed: decode is combinational off the
+      instruction register, one instruction per clock (with a delay-slot
+      fix-up on taken jumps). All signals (`WE`, `S`, `Sub`, `ALU_Op`,
+      `MDU_op`, `Jump_EN`, stack/HI enables) generated in `cpu/CPU.dig`
 
 ## 4. Integration
 
-- [~] Full datapath (PC → memory → registers → ALU → write-back)
-      — `datapath/datapath.dig` from Digital: `register_file` → `ALU` →
-      write-back mux (`S` picks `Data_In` vs ALU `Out`). Register read →
-      compute → write-back simulates correctly. `program_counter` and a demo
-      `ROM` exist as standalone blocks; wiring them into the datapath, plus the
-      decoder, is still to come, and every control line is a primary input for now
-- [ ] Execute the first instruction
-- [ ] Test program in memory
-- [ ] CPU running a complete program
+- [x] Full datapath (PC → memory → registers → ALU → write-back) —
+      `datapath/datapath.dig` (`register_file` → `ALU` → write-back mux, plus
+      `RegA_Out`/`RegB_Out` taps) wired into `cpu/CPU.dig` together with the
+      native `ROM`, the PC, the RAM, and the two-level decoder. Every control
+      line is now generated, none are primary inputs
+- [x] Execute the first instruction — fetch test, `0x1000`/`0x2000`/.../`0x4000`
+- [x] Test program in memory — RAM and stack programs in `cpu/CPU.md` §15
+- [x] CPU running a complete program — function-call test with `PUSH`/`CALL`/
+      `RET` in `cpu/CPU.md` §15
+
+## 5. Software
+
+- [x] Assembler — `assembler/asm16.py`, two-pass with label support, all 16
+      opcodes and the 6 `funct` sub-instructions; writes Digital's `v2.0 raw`
+      hex format. Example programs under `assembler/examples/`
+
+## 6. Beyond a working processor
+
+Not needed for the CPU to be complete — capability and peripherals. See
+`cpu/CPU.md` §19 for the reasoning behind the order.
+
+- [ ] I/O — an output register to a display and an input register from
+      switches; the next and most important step, since right now reading a
+      result means inspecting wires in the simulator
+- [ ] More memory — the 16-word RAM and 6-bit immediate cap real programs;
+      needs the addressing scheme solved first
+- [ ] Offset addressing (`LOAD rd, off(ra)`) — needs an address adder separate
+      from the ALU's, which the instruction's own operation keeps busy
+- [ ] `MTHI` — write access to the `HI` register (`MFHI` only reads it today)
+- [ ] Stack overflow/collision protection — the stack grows over the data
+      area with no warning
+- [ ] Interrupts — today the only way out of `HLT` is `Reset`
 
 ## Technical debt / cleanup
 

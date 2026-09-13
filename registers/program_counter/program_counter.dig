@@ -10,7 +10,7 @@
     </entry>
     <entry>
       <string>Width</string>
-      <int>5</int>
+      <int>7</int>
     </entry>
   </attributes>
   <visualElements>
@@ -43,16 +43,16 @@
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
+          <string>rotation</string>
+          <rotation rotation="1"/>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>Jump_Addr</string>
         </entry>
         <entry>
           <string>Bits</string>
           <int>16</int>
-        </entry>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="1"/>
         </entry>
       </elementAttributes>
       <pos x="1300" y="500"/>
@@ -90,16 +90,6 @@
         </entry>
       </elementAttributes>
       <pos x="660" y="400"/>
-    </visualElement>
-    <visualElement>
-      <elementName>VDD</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="1"/>
-        </entry>
-      </elementAttributes>
-      <pos x="720" y="440"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -143,6 +133,16 @@
       </elementAttributes>
       <pos x="1020" y="420"/>
     </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>EN</string>
+        </entry>
+      </elementAttributes>
+      <pos x="660" y="440"/>
+    </visualElement>
   </visualElements>
   <wires>
     <wire>
@@ -178,12 +178,12 @@
       <p2 x="1340" y="440"/>
     </wire>
     <wire>
-      <p1 x="720" y="440"/>
-      <p2 x="780" y="440"/>
-    </wire>
-    <wire>
       <p1 x="1040" y="440"/>
       <p2 x="1100" y="440"/>
+    </wire>
+    <wire>
+      <p1 x="660" y="440"/>
+      <p2 x="780" y="440"/>
     </wire>
     <wire>
       <p1 x="660" y="360"/>
